@@ -1,5 +1,46 @@
 models:
-  # ...
+  Category:
+    name: string
+    relationships:
+      hasMany: Event
+
+  Event:
+    user_id: foreignId
+    category_id: foreignId
+    title: string
+    description: text nullable
+    location: string
+    datetime: datetime
+    image_path: string nullable
+    relationships:
+      belongsTo: User, Category
+      hasMany: Ticket, Order
+
+  Ticket:
+    event_id: foreignId
+    type: string
+    price: decimal:12,2
+    stock: integer
+    relationships:
+      belongsTo: Event
+      hasMany: OrderDetail
+
+  Order:
+    user_id: foreignId
+    event_id: foreignId
+    order_date: datetime
+    total_price: decimal:12,2
+    relationships:
+      belongsTo: User, Event
+      hasMany: OrderDetail
+
+  OrderDetail:
+    order_id: foreignId
+    ticket_id: foreignId
+    quantity: integer
+    sub_total: decimal:12,2
+    relationships:
+      belongsTo: Order, Ticket
 
 controllers:
   # ...
