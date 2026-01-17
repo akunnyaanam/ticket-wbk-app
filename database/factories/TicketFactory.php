@@ -18,8 +18,8 @@ class TicketFactory extends Factory
         return [
             'event_id' => Event::factory(),
             'type' => fake()->randomElement($type),
-            'price' => fake()->randomFloat(2, 0, 9999999999.99),
-            'stock' => fake()->numberBetween(-10000, 10000),
+            'price' => fake()->numberBetween(1, 9) * 10000,
+            'stock' => fake()->numberBetween(1, 9) * 10,
         ];
     }
 }

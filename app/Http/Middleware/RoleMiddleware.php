@@ -20,7 +20,7 @@ class RoleMiddleware
         $user = Auth::user();
 
         // 1. Check if user is logged in
-        if (!$user) {
+        if (! $user) {
             return redirect('/login');
         }
 

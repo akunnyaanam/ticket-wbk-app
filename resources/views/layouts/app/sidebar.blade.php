@@ -24,7 +24,16 @@
                             ],
                         ];
 
-                        if (auth()->user()->role === UserRole::ADMIN) {
+                        $menus[] = [
+                            'label' => 'History',
+                            'route' => 'orders.history',
+                            'icon'  => 'rectangle-stack',
+                            'active' => 'orders.history',
+                        ];
+
+                        $userRole = auth()->user()->role ?? null;
+
+                        if ( $userRole === UserRole::ADMIN) {
                             $menus[] = [
                                 'label' => 'Categories',
                                 'route' => 'categories',
@@ -40,8 +49,9 @@
                             ];
                         }
 
-                        if (auth()->user()->role === UserRole::USER) {
+                        if ( $userRole === UserRole::USER) {
                         }
+
                     @endphp
 
                     @foreach ($menus as $menu)
@@ -70,7 +80,7 @@
                 </flux:sidebar.item>
             </flux:sidebar.nav>
 
-            <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
+            <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name ?? ''" />
         </flux:sidebar>
 
         <!-- Mobile User Menu -->

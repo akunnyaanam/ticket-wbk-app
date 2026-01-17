@@ -6,15 +6,11 @@ use App\Models\Category;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
-use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
-use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -27,8 +23,8 @@ use Livewire\Component;
 class ListCategories extends Component implements HasActions, HasSchemas, HasTable
 {
     use InteractsWithActions;
-    use InteractsWithTable;
     use InteractsWithSchemas;
+    use InteractsWithTable;
 
     public function getFormSchema(): array
     {
@@ -40,7 +36,7 @@ class ListCategories extends Component implements HasActions, HasSchemas, HasTab
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn(): Builder => Category::query())
+            ->query(fn (): Builder => Category::query())
             ->searchable()
             ->columns([
                 TextColumn::make('name')->searchable(),

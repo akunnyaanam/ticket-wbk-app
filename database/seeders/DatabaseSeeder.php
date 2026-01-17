@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder
                 $tickets = $order->event->tickets;
                 \App\Models\OrderDetail::factory(2)
                     ->recycle($order)
-                    ->state(fn() => [
+                    ->state(fn () => [
                         'ticket_id' => $tickets->random()->id,
                     ])
                     ->create();

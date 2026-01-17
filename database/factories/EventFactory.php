@@ -17,10 +17,10 @@ class EventFactory extends Factory
             'user_id' => User::factory(),
             'category_id' => Category::factory(),
             'title' => fake()->sentence(4),
-            'description' => fake()->text(),
+            'description' => fake()->paragraphs(3, true),
             'location' => fake()->word(),
-            'datetime' => fake()->dateTime(),
-            'image_path' => fake()->word(),
+            'datetime' => fake()->dateTimeBetween('-1 week', '+1 week'),
+            'image_path' => null,
         ];
     }
 }

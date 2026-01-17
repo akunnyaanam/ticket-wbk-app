@@ -16,8 +16,8 @@ class OrderFactory extends Factory
         return [
             'user_id' => User::factory(),
             'event_id' => Event::factory(),
-            'order_date' => fake()->dateTime(),
-            'total_price' => fake()->randomFloat(2, 0, 9999999999.99),
+            'order_date' => fake()->dateTimeBetween('-1 week', '+1 week'),
+            'total_price' => 0,
         ];
     }
 }

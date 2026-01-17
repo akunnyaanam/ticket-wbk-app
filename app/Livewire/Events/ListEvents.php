@@ -22,22 +22,22 @@ use Livewire\Component;
 class ListEvents extends Component implements HasActions, HasSchemas, HasTable
 {
     use InteractsWithActions;
-    use InteractsWithTable;
     use InteractsWithSchemas;
+    use InteractsWithTable;
 
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn(): Builder => Event::query())
+            ->query(fn (): Builder => Event::query())
             ->columns([
                 TextColumn::make('user.name')->searchable()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('title')
-                    ->description(fn(Event $model) => Str::limit($model->description ?? 'No Description', 50))
+                    ->description(fn (Event $model) => Str::limit($model->description ?? 'No Description', 50))
                     ->searchable(),
                 TextColumn::make('category.name')->searchable()->sortable(),
                 TextColumn::make('datetime')
                     ->label('Date and Location')
-                    ->description(fn(Event $model) => $model->location ?? '')
+                    ->description(fn (Event $model) => $model->location ?? '')
                     ->dateTime()
                     ->sortable(),
                 ImageColumn::make('image_path')->toggleable(isToggledHiddenByDefault: true),
@@ -57,7 +57,7 @@ class ListEvents extends Component implements HasActions, HasSchemas, HasTable
                 //
             ])
             ->recordActions([
-                EditAction::make()->url(fn(Event $record): string => route('events.edit', $record)),
+                EditAction::make()->url(fn (Event $record): string => route('events.edit', $record)),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

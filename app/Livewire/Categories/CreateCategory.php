@@ -27,7 +27,7 @@ class CreateCategory extends Component implements HasActions, HasSchemas
     {
         return CreateAction::make()
             ->model(Category::class)
-            ->after(fn() => $this->dispatch('category-created'))
+            ->after(fn () => $this->dispatch('category-created'))
             ->schema($this->getFormSchema());
     }
 

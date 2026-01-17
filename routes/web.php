@@ -1,11 +1,12 @@
 <?php
 
+use App\Livewire\Home;
+use App\Livewire\Order\CreateOrder;
+use App\Livewire\Orders\OrderHistory;
 use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', Home::class)->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
@@ -29,9 +30,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             });
     });
 
-    // Route::middleware('role:user')->group(function () {
-    //     Route::view('my-tickets', 'pages.tickets.my-tickets')->name('my-tickets');
-    // });
+    Route::middleware(['auth', 'role:user'])->group(function () {
+        Route::get('/events/{event}/order', CreateOrder::class)->name('orders.create');
+    });
+
+    Route::get('/history', OrderHistory::class)->middleware('auth')->name('orders.history');
 });
 
-require __DIR__ . '/settings.php';
+require __DIR__.'/settings.php';

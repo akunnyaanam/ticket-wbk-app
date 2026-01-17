@@ -20,11 +20,11 @@ use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Livewire\Component;
 
-class EventTickets extends Component implements HasForms, HasTable, HasActions
+class EventTickets extends Component implements HasActions, HasForms, HasTable
 {
+    use InteractsWithActions;
     use InteractsWithForms;
     use InteractsWithTable;
-    use InteractsWithActions;
 
     public $event;
 
@@ -59,7 +59,7 @@ class EventTickets extends Component implements HasForms, HasTable, HasActions
     public function table(Table $table): Table
     {
         return $table
-            ->relationship(fn() => $this->event->tickets())
+            ->relationship(fn () => $this->event->tickets())
             ->heading('Tickets')
             ->searchable()
             ->columns([

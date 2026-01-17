@@ -52,7 +52,7 @@ class EditEvent extends Component implements HasActions, HasSchemas
                         FileUpload::make('image_path')->image(),
                     ])
                     ->footer([
-                        Action::make('save')->action(fn() => $this->save()),
+                        Action::make('save')->action(fn () => $this->save()),
                     ]),
             ])
             ->statePath('data')

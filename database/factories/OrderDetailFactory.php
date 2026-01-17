@@ -16,8 +16,8 @@ class OrderDetailFactory extends Factory
         return [
             'order_id' => Order::factory(),
             'ticket_id' => Ticket::factory(),
-            'quantity' => fake()->numberBetween(-10000, 10000),
-            'sub_total' => fake()->randomFloat(2, 0, 9999999999.99),
+            'quantity' => fake()->numberBetween(1, 9),
+            'sub_total' => 0,
         ];
     }
 }
