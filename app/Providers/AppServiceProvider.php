@@ -5,6 +5,8 @@ namespace App\Providers;
 use Carbon\CarbonImmutable;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Table;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
@@ -35,6 +37,14 @@ class AppServiceProvider extends ServiceProvider
             'success' => Color::Green,
             'warning' => Color::Amber,
         ]);
+
+        Table::configureUsing(function (Table $table): void {
+            $table
+                ->defaultSort('updated_at', 'desc')
+                ->filtersLayout(FiltersLayout::AboveContent)
+                ->defaultPaginationPageOption(5)
+                ->paginationPageOptions([5, 10, 25, 50]);
+        });
     }
 
     protected function configureDefaults(): void

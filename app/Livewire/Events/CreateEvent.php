@@ -35,7 +35,6 @@ class CreateEvent extends Component implements HasActions, HasSchemas
         return $schema
             ->components([
                 Section::make()->schema([
-                    Select::make('user_id')->relationship('user', 'name')->required(),
                     Select::make('category_id')
                         ->searchable()
                         ->preload()
@@ -57,6 +56,8 @@ class CreateEvent extends Component implements HasActions, HasSchemas
     {
         $data = $this->form->getState();
 
+        $data['user_id'] = auth()->id();
+
         $record = Event::create($data);
 
         $this->form->model($record)->saveRelationships();
@@ -66,7 +67,7 @@ class CreateEvent extends Component implements HasActions, HasSchemas
             ->success()
             ->send();
 
-        $this->redirect(route('events'), navigate: true);
+        $this->redirect(route('events.edit', ['event' => $record]), navigate: true);
     }
 
     public function render(): View

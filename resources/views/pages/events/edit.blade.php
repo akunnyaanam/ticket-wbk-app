@@ -6,26 +6,33 @@
             <header class="mb-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <flux:heading size="xl" level="1">{{ __('Events') }}</flux:heading>
+                        <flux:heading size="xl" level="1">{{ $event->title ?? __('Edit Event') }}</flux:heading>
                         <flux:subheading class="mt-2 text-base">
-                            Create, edit, and manage your events here.
-                            Click "Edit" to modify an event and/or manage its tickets.
+                            Edit your event and manage your tickets.
                         </flux:subheading>
                     </div>
 
                     <flux:button
-                        href="{{ route('events.create') }}" wire:navigate.hover
-                        variant="primary"
-                        icon="plus"
+                        href="{{ route('events') }}" wire:navigate.hover
+                        icon="arrow-left"
+                        variant="subtle"
+                        size="sm"
                     >
-                        Create Event
+                        Back to List
                     </flux:button>
                 </div>
             </header>
 
             <div>
-                @livewire('events.list-events')
+                @livewire('events.edit-event', ['event' => $event])
             </div>
+
+            <flux:separator class="my-8" />
+
+            <div>
+                 @livewire('events.event-tickets', ['event' => $event])
+            </div>
+
         </div>
     </div>
 </x-layouts::app>
