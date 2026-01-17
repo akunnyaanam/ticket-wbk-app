@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Ticket;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
@@ -82,7 +83,12 @@ class CreateOrder extends Component
 
         session()->flash('success', 'Order berhasil dibuat!');
 
-        return redirect()->route('home');
+        Notification::make()
+            ->title('Order Berhasil')
+            ->success()
+            ->send();
+
+        return redirect()->route('orders.history');
     }
 
     public function render()
