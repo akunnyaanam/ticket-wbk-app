@@ -9,11 +9,10 @@
 
 ## 🚀 Features
 
--   **⚡ Real-time Updates**: Live ticket availability and event status.
--   **🎨 Modern UI**: Built with Laravel Livewire Starterkit and filament for rapid development.
--   **🔐 Secure**: Robust authentication and authorization.
--   **📱 Responsive**: Seamless experience across all devices. i hope you it will be fine.
--   **🛒 Easy Checkout**: just prototype. dont hope it will be fine.
+-   **🎨 Modern UI**: Built with Laravel Starter Kit Livewire Edition + Flux UI and filamentphp for rapid development.
+-   **🔐 Secure**: Robust authentication with laravel fortify
+-   **📱 Responsive**: Seamless experience across all devices. i hope it will be fine.
+-   **🛒 Easy Checkout**: just prototype.
 
 ## 🛠️ Tech Stack
 
