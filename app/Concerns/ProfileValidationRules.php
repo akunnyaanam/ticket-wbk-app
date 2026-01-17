@@ -16,6 +16,7 @@ trait ProfileValidationRules
     {
         return [
             'name' => $this->nameRules(),
+            'phone' => $this->nameRules(),
             'email' => $this->emailRules($userId),
         ];
     }
@@ -42,9 +43,7 @@ trait ProfileValidationRules
             'string',
             'email',
             'max:255',
-            $userId === null
-                ? Rule::unique(User::class)
-                : Rule::unique(User::class)->ignore($userId),
+            $userId === null ? Rule::unique(User::class) : Rule::unique(User::class)->ignore($userId),
         ];
     }
 }

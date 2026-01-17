@@ -7,13 +7,31 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::view('dashboard', 'dashboard')->name('dashboard');
 
-Route::view('categories', 'pages.categories')->middleware(['auth', 'verified'])->name('categories');
-Route::view('events', 'pages.events.index')->middleware(['auth', 'verified'])->name('events');
-Route::view('events/create', 'pages.events.create')->middleware(['auth', 'verified'])->name('events.create');
-Route::get('events/{event}/edit', function (Event $event) {
-    return view('pages.events.edit', ['event' => $event]);
-})->middleware(['auth', 'verified'])->name('events.edit');
+    Route::middleware('role:admin')->group(function () {
+        Route::view('categories', 'pages.categories')->name('categories');
+
+        Route::prefix('events')
+            ->name('events.')
+            ->group(function () {
+                // route('events.index')
+                Route::view('/', 'pages.events.index')->name('index');
+
+                // route('events.create')
+                Route::view('/create', 'pages.events.create')->name('create');
+
+                // route('events.edit')
+                Route::get('/{event}/edit', function (Event $event) {
+                    return view('pages.events.edit', ['event' => $event]);
+                })->name('edit');
+            });
+    });
+
+    // Route::middleware('role:user')->group(function () {
+    //     Route::view('my-tickets', 'pages.tickets.my-tickets')->name('my-tickets');
+    // });
+});
 
 require __DIR__ . '/settings.php';

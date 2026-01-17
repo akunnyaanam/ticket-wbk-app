@@ -1,3 +1,4 @@
+@use('App\Enums\UserRole')
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
@@ -6,21 +7,54 @@
     <body class="antialiased min-h-screen bg-white dark:bg-zinc-800">
         <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
             <flux:sidebar.header>
-                <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
+                <x-app-logo :sidebar="true" href="{{ route('home') }}" wire:navigate />
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
 
             <flux:sidebar.nav>
                 <flux:sidebar.group :heading="__('Platform')" class="grid">
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </flux:sidebar.item>
-                    <flux:sidebar.item icon="rectangle-stack" :href="route('categories')" :current="request()->routeIs('categories')" wire:navigate>
-                        {{ __('Categories') }}
-                    </flux:sidebar.item>
-                    <flux:sidebar.item icon="rectangle-stack" :href="route('events')" :current="request()->routeIs('events')" wire:navigate>
-                        {{ __('Events') }}
-                    </flux:sidebar.item>
+                    @php
+
+                        $menus = [
+                            [
+                                'label' => 'Dashboard',
+                                'route' => 'dashboard',
+                                'icon'  => 'home',
+                                'active' => 'dashboard',
+                            ],
+                        ];
+
+                        if (auth()->user()->role === UserRole::ADMIN) {
+                            $menus[] = [
+                                'label' => 'Categories',
+                                'route' => 'categories',
+                                'icon'  => 'rectangle-stack',
+                                'active' => 'categories',
+                            ];
+
+                            $menus[] = [
+                                'label' => 'Events',
+                                'route' => 'events.index',
+                                'icon'  => 'calendar',
+                                'active' => 'events.*',
+                            ];
+                        }
+
+                        if (auth()->user()->role === UserRole::USER) {
+                        }
+                    @endphp
+
+                    @foreach ($menus as $menu)
+                        <flux:sidebar.item
+                            :icon="$menu['icon']"
+                            :href="route($menu['route'])"
+                            :current="request()->routeIs($menu['active'])"
+                            wire:navigate
+                        >
+                            {{ __($menu['label']) }}
+                        </flux:sidebar.item>
+                    @endforeach
+
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
