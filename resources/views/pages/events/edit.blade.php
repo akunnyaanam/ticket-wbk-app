@@ -13,7 +13,7 @@
                     </div>
 
                     <flux:button
-                        href="{{ route('events') }}" wire:navigate.hover
+                        href="{{ route('events.index') }}" wire:navigate.hover
                         icon="arrow-left"
                         variant="subtle"
                         size="sm"
