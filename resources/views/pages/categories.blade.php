@@ -3,14 +3,16 @@
         <flux:separator class="md:hidden" />
 
         <div class="mx-auto w-full max-w-7xl px-4 py-6 md:px-6 lg:px-8">
-            <header class="mb-6">
-                <flux:heading size="xl" level="1">{{ __('Categories') }}</flux:heading>
-                <flux:subheading class="mt-2 text-base">
-                    Create, edit, and manage your categories here.
-                </flux:subheading>
+            <header class="mb-6 flex items-center justify-between">
+                <div>
+                    <flux:heading size="xl" level="1">{{ __('Categories') }}</flux:heading>
+                    <flux:subheading class="mt-2 text-base">Manage your categories.</flux:subheading>
+                </div>
+
+                @livewire('categories.create-category')
             </header>
 
-            <div class="rounded-xl shadow-sm">
+            <div class="rounded-xl shadow-sm ">
                 @livewire('categories.list-categories')
             </div>
         </div>

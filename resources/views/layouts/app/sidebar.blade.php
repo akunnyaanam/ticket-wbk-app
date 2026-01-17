@@ -18,6 +18,9 @@
                     <flux:sidebar.item icon="rectangle-stack" :href="route('categories')" :current="request()->routeIs('categories')" wire:navigate>
                         {{ __('Categories') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item icon="rectangle-stack" :href="route('events')" :current="request()->routeIs('events')" wire:navigate>
+                        {{ __('Events') }}
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
@@ -92,10 +95,11 @@
         </flux:header>
 
         {{ $slot }}
+        @livewire('notifications')
 
-        @livewire('notifications') {{-- Only required if you wish to send flash notifications --}}
-        @fluxScripts
+        @livewireScripts
         @filamentScripts
+        @fluxScripts
         @vite('resources/js/app.js')
     </body>
 </html>

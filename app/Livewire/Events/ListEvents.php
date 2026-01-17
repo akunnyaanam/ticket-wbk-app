@@ -1,49 +1,45 @@
 <?php
 
-namespace App\Livewire\Categories;
+namespace App\Livewire\Events;
 
-use App\Models\Category;
+use App\Models\Event;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
-use Filament\Actions\CreateAction;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\EditAction;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
-use Filament\Schemas\Schema;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
-class ListCategories extends Component implements HasActions, HasSchemas, HasTable
+class ListEvents extends Component implements HasActions, HasSchemas, HasTable
 {
     use InteractsWithActions;
     use InteractsWithTable;
     use InteractsWithSchemas;
 
-    public function getFormSchema(): array
-    {
-        return [
-            TextInput::make('name')->required(),
-        ];
-    }
-
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn(): Builder => Category::query())
-            ->searchable()
+            ->query(fn (): Builder => Event::query())
             ->columns([
-                TextColumn::make('name')->searchable(),
+                TextColumn::make('user.name')
+                    ->searchable(),
+                TextColumn::make('category.name')
+                    ->searchable(),
+                TextColumn::make('title')
+                    ->searchable(),
+                TextColumn::make('location')
+                    ->searchable(),
+                TextColumn::make('datetime')
+                    ->dateTime()
+                    ->sortable(),
+                ImageColumn::make('image_path'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -56,10 +52,11 @@ class ListCategories extends Component implements HasActions, HasSchemas, HasTab
             ->filters([
                 //
             ])
-            ->headerActions([])
+            ->headerActions([
+                //
+            ])
             ->recordActions([
-                DeleteAction::make(),
-                EditAction::make()->schema($this->getFormSchema()),
+                //
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -68,14 +65,8 @@ class ListCategories extends Component implements HasActions, HasSchemas, HasTab
             ]);
     }
 
-    #[On('category-created')]
-    public function refreshTable(): void
-    {
-        // Livewire akan otomatis me-render ulang komponen saat fungsi ini dipicu
-    }
-
     public function render(): View
     {
-        return view('livewire.categories.list-categories');
+        return view('livewire.events.list-events');
     }
 }
