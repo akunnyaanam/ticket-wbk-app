@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TicketType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,6 +33,7 @@ class Ticket extends Model
     {
         return [
             'id' => 'integer',
+            'type' => TicketType::class,
             'event_id' => 'integer',
             'price' => 'decimal:2',
         ];

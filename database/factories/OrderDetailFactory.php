@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\;
 use App\Models\Order;
+use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrderDetailFactory extends Factory
@@ -15,7 +15,7 @@ class OrderDetailFactory extends Factory
     {
         return [
             'order_id' => Order::factory(),
-            'ticket_id' => ::factory(),
+            'ticket_id' => Ticket::factory(),
             'quantity' => fake()->numberBetween(-10000, 10000),
             'sub_total' => fake()->randomFloat(2, 0, 9999999999.99),
         ];
